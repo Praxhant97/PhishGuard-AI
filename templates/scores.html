@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Scores</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>🏆 Game Scores</h2>
+    <p>Your phishing training progress</p>
+</div>
+
+<div class="container">
+
+    {% if scores %}
+        {% for s in scores %}
+        <div class="card">
+            <p><strong>Score:</strong> {{ s['score'] }} / {{ s['total'] }}</p>
+            <p><strong>Level:</strong> {{ s['level'] }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>No game data available.</p>
+        </div>
+    {% endif %}
+
+    <div class="card">
+        <a href="/game">⬅ Back to Game</a>
+    </div>
+
+</div>
+
+</body>
+</html>

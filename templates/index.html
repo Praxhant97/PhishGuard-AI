@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <div class="card hero">
+    <h1>🛡️ PhishGuard AI</h1>
+    <p>
+        Detect phishing and scam emails using AI.
+        Learn how attackers trick users and protect yourself.
+    </p>
+</div>
+x
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard AI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <div class="nav-content">
+          <h2>🛡️ PhishGuard AI</h2>
+          <div class="nav-links">
+            
+              <a href="/">Detector</a>
+              <a href="/game">Training Game</a>
+              <a href="/history">Scan History</a>
+<a href="/scores">Game Scores</a>
+
+          </div>
+      </div>
+      <p>Email Fraud Detection System</p>
+  </div>
+  
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+
+        <!-- INPUT CARD -->
+        <div class="card">
+            <h3>Scan an Email</h3>
+            <p>Paste the email text below to check if it is safe or a scam.</p>
+
+            <form method="POST" onsubmit="showLoader()">
+              <div id="loader" class="loader">
+                🔍 Analyzing email, please wait...
+            </div>
+            
+                <textarea 
+                    name="email" 
+                    placeholder="Paste the email text here..." 
+                    required>{{ email_text }}</textarea>
+
+                <button type="submit">Analyze Email</button>
+            </form>
+        </div>
+
+        <!-- RESULT CARD -->
+        {% if result %}
+        {% if result %}
+        <div class="card result {{ result }}">
+        
+            <h3>Analysis Result</h3>
+        
+            <h2 class="status">{{ result }}</h2>
+        
+            <p><strong>Confidence:</strong> {{ confidence }}%</p>
+        
+            <div class="confidence-bar">
+                <div class="confidence-fill" style="width: {{ confidence }}%;"></div>
+            </div>
+        
+            <div class="explain">
+                {% if result == "FRAUD" %}
+                    ⚠️ This email contains common phishing patterns.
+                {% else %}
+                    ✅ This email looks safe based on the analysis.
+                {% endif %}
+            </div>
+        
+            {% if highlighted_text %}
+            <div class="explain">
+                <strong>Highlighted Risky Words:</strong>
+                <p>{{ highlighted_text | safe }}</p>
+            </div>
+            {% endif %}
+        
+        </div>
+        {% endif %}
+        
+
+            <h3>Analysis Result</h3>
+
+            <h2 class="status">{{ result }}</h2>
+
+            <p><strong>Confidence:</strong> {{ confidence }}%</p>
+            <div class="explain">
+              <strong>What this means:</strong>
+              <p>
+                  {% if result == "FRAUD" %}
+                  This message uses urgency and action-based language
+                  commonly found in phishing attempts.
+                  {% else %}
+                  This message does not contain common phishing patterns.
+                  {% endif %}
+              </p>
+          </div>
+          
+
+            <!-- CONFIDENCE BAR -->
+            <div class="confidence-bar">
+                <div class="confidence-fill" style="width: {{ confidence }}%;"></div>
+            </div>
+
+            {% if result == "FRAUD" %}
+            <div class="explain">
+              <strong>Highlighted Risky Content:</strong>
+              <p>{{ highlighted_text | safe }}</p>
+          </div>
+          
+            {% else %}
+                <p class="explain">
+                    ✅ This email does not show common phishing patterns.
+                </p>
+            {% endif %}
+
+        </div>
+        {% endif %}
+
+    </div>
+    <script>
+      function showLoader() {
+          document.getElementById("loader").style.display = "block";
+      }
+      </script>
+      
+
+</body>
+</html>

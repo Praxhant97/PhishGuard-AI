@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing Training Game</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>🎮 Phishing Training Game</h2>
+    <p>Level: {{ level }}</p>
+</div>
+
+<div class="container">
+
+    <!-- SCORE CARD -->
+    <div class="card">
+        <h3>Your Progress</h3>
+        <p><strong>Score:</strong> {{ score }} / {{ total }}</p>
+    </div>
+
+    <!-- QUESTION CARD -->
+    <div class="card">
+        <h3>Email Example</h3>
+        <p>{{ question.text }}</p>
+
+        <form method="POST">
+            <input type="hidden" name="correct" value="{{ question.answer }}">
+            <input type="hidden" name="reason" value="{{ question.reason }}">
+
+            <button name="choice" value="SAFE">Looks Safe</button>
+            <button name="choice" value="FRAUD">Looks Like Scam</button>
+        </form>
+    </div>
+
+    {% if feedback %}
+    <div class="card">
+        <p><strong>{{ feedback }}</strong></p>
+        <a href="/game">Next Question</a>
+    </div>
+    {% endif %}
+
+    <div class="card">
+        <a href="/reset-game">Reset Game</a>
+    </div>
+    
+
+</div>
+
+
+</body>
+</html>

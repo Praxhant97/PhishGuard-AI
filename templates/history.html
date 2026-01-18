@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan History</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>📜 Scan History</h2>
+    <p>Previously analyzed emails</p>
+</div>
+
+<div class="container">
+
+    {% if scans %}
+        {% for scan in scans %}
+        <div class="card result {{ scan['result'] }}">
+            <p><strong>Email:</strong></p>
+            <p>{{ scan['email'] }}</p>
+
+            <p><strong>Result:</strong> {{ scan['result'] }}</p>
+            <p><strong>Confidence:</strong> {{ scan['confidence'] }}%</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>No scan history available.</p>
+        </div>
+    {% endif %}
+
+    <div class="card">
+        <a href="/">⬅ Back to Detector</a>
+    </div>
+
+</div>
+
+</body>
+</html>
